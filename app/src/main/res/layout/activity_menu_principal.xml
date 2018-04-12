@@ -16,12 +16,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:onClick="clickBotao2"
+        android:text="teste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
     <ListView
         android:layout_below="@id/tituloUCI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
+
+
     
     
 

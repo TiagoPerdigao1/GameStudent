@@ -5,7 +5,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MenuPrincipalActivity extends AppCompatActivity {
 
@@ -46,4 +57,33 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public void clickBotao2(View v) {
+
+        String url = "https://tiagocepa.000webhostapp.com/myslim/api/cidadesdetalhe";
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, (response) -> {
+                    try {
+                        ((TextView) findViewById(R.id.texto)).setText(response.getString(Utils.param_status));
+                        JSONArray arr = response.getJSONArray(Utils.param_dados);
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject obj = arr.getJSONObject(i);
+                            Toast.makeText(this, obj.getString("cidade") + ";" +
+                                    obj.getString("pais"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException ex) {
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        ((TextView) findViewById(R.id.texto)).setText(error.getMessage());
+                    }
+                });
+
+        // Access the RequestQueue through your singleton class.
+        MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
+    }
+
 }
