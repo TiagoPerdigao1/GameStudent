@@ -16,5 +16,5 @@
         app:showAsAction="never" />
     <item android:id="@+id/opcao5"
         android:title="Opçâo 5"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 </menu>

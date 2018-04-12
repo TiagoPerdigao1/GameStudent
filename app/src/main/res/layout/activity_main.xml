@@ -92,7 +92,8 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Entrar" />
+                android:text="Entrar"
+                android:onClick="paginaMenuPrincipal"/>
 
         </LinearLayout>
 
