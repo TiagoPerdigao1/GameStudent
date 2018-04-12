@@ -60,19 +60,43 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
     public void clickBotao2(View v) {
 
-        String url = "https://tiagocepa.000webhostapp.com/myslim/api/cidadesdetalhe";
+        /*String url = "192.168.1.120/myslim/api/testecadeira";
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, (response) -> {
                     try {
-                        ((TextView) findViewById(R.id.texto)).setText(response.getString(Utils.param_status));
+                        //((TextView) findViewById(R.id.texto)).setText(response.getString(Utils.param_status));
                         JSONArray arr = response.getJSONArray(Utils.param_dados);
                         for (int i = 0; i < arr.length(); i++) {
                             JSONObject obj = arr.getJSONObject(i);
-                            Toast.makeText(this, obj.getString("cidade") + ";" +
-                                    obj.getString("pais"), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(MenuPrincipalActivity.this, "ola", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(MenuPrincipalActivity.this, obj.getString("cidade") + ";" +
+                            //        obj.getString("pais"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException ex) {
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //((TextView) findViewById(R.id.texto)).setText(error.getMessage());
+                    }
+                });
+
+        // Access the RequestQueue through your singleton class.
+            MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);*/
+
+        String url = "192.168.1.120/myslim/api/testecadeira";
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            ((TextView) findViewById(R.id.texto)).setText(response.getString("nome"));
+                        } catch (JSONException ex) {
+                        }
                     }
                 }, new Response.ErrorListener() {
 
@@ -84,6 +108,8 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
-    }
 
-}
+
+        }
+
+    }
