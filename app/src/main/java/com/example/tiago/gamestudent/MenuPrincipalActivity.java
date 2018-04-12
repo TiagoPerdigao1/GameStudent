@@ -65,7 +65,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, (response) -> {
                     try {
-                        //((TextView) findViewById(R.id.texto)).setText(response.getString(Utils.param_status));
+                        ((TextView) findViewById(R.id.texto)).setText(response.getString(Utils.param_status));
                         JSONArray arr = response.getJSONArray(Utils.param_dados);
                         for (int i = 0; i < arr.length(); i++) {
                             JSONObject obj = arr.getJSONObject(i);
@@ -79,7 +79,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //((TextView) findViewById(R.id.texto)).setText(error.getMessage());
+                        ((TextView) findViewById(R.id.texto)).setText(error.getMessage());
                     }
                 });
 
