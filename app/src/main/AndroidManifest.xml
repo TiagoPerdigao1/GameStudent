@@ -19,6 +19,7 @@
         <activity android:name=".RegistarAlunoActivity" />
         <activity android:name=".MenuPrincipalActivity"></activity>
     </application>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 
 </manifest>

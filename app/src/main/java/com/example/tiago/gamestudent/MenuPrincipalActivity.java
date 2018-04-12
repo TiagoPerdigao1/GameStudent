@@ -60,7 +60,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
     public void clickBotao2(View v) {
 
-        /*String url = "192.168.1.120/myslim/api/testecadeira";
+        String url = "http://192.168.1.120/myslim/api/testecadeira";
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, (response) -> {
@@ -69,10 +69,10 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                         JSONArray arr = response.getJSONArray(Utils.param_dados);
                         for (int i = 0; i < arr.length(); i++) {
                             JSONObject obj = arr.getJSONObject(i);
-                            //Toast.makeText(MenuPrincipalActivity.this, "ola", Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(MenuPrincipalActivity.this, obj.getString("cidade") + ";" +
-                            //        obj.getString("pais"), Toast.LENGTH_SHORT).show();
-                        }
+                            Toast.makeText(MenuPrincipalActivity.this, "ola", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MenuPrincipalActivity.this, obj.getString("aluno") + ";" +
+                                    obj.getString("nome"), Toast.LENGTH_SHORT).show();
+                        } //Toast.makeText(MenuPrincipalActivity.this, "ola", Toast.LENGTH_SHORT).show();
                     } catch (JSONException ex) {
                     }
                 }, new Response.ErrorListener() {
@@ -84,9 +84,11 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 });
 
         // Access the RequestQueue through your singleton class.
-            MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);*/
+            MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
 
-        String url = "192.168.1.120/myslim/api/testecadeira";
+        /*
+        //De uma string apenas
+        String url = "http://192.168.1.120/myslim/api/aluno/1";
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -108,7 +110,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
-
+        */
 
         }
 
