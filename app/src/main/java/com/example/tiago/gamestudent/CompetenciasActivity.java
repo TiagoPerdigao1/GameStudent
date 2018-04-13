@@ -43,6 +43,14 @@ public class CompetenciasActivity extends AppCompatActivity {
         this.listview.setAdapter(this.itemsAdapter);
 
         registerForContextMenu((ListView)findViewById(R.id.listaSC));
+
+        Bundle extras = getIntent().getExtras();
+
+            int valor = extras.getInt("chaveCompetencia");
+            //The key argument here must match that used in the other activity
+            Toast.makeText(this, "Sacou valor na posicao " + valor, Toast.LENGTH_SHORT ).show();
+        
+
     }
 
 

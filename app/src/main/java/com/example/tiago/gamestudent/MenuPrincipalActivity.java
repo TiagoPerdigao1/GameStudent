@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -158,14 +159,20 @@ public class MenuPrincipalActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int listPosition = info.position + 1;
+        Toast.makeText(this, "Carregou na posicao " + listPosition, Toast.LENGTH_SHORT ).show();
         switch (item.getItemId()) {
             case R.id.reclamarPremio:
+
                 Intent intent = new Intent(this, PremiosActivity.class);
+                intent.putExtra("chavePremio",listPosition);
                 startActivity(intent);
                 Toast.makeText(this, "Carregou em 'Remover'", Toast.LENGTH_SHORT ).show();
                 return true;
             case R.id.solicitarCompetencia:
                 Intent intent2 = new Intent(this, CompetenciasActivity.class);
+                intent2.putExtra("chaveCompetencia",listPosition);
                 startActivity(intent2);
                 Toast.makeText(this, "Carregou em 'Remover'", Toast.LENGTH_SHORT).show();
                 return true;
