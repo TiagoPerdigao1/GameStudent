@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void paginaMenuPrincipal(View v){
+
+
         Intent intent = new Intent(this, MenuPrincipalActivity.class);
         startActivity(intent);
     }

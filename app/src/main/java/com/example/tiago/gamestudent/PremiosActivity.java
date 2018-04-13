@@ -1,6 +1,5 @@
 package com.example.tiago.gamestudent;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -8,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +18,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.tiago.gamestudent.models.CadeiraMenuPrincipal;
 import com.example.tiago.gamestudent.models.CustomArrayAdapter;
-
+import com.example.tiago.gamestudent.models.CustomArrayAdapterPremios;
+import com.example.tiago.gamestudent.models.PremiosDoAluno;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,39 +27,38 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MenuPrincipalActivity extends AppCompatActivity {
+public class PremiosActivity extends AppCompatActivity {
 
-    ArrayList<CadeiraMenuPrincipal> arrayItems = new ArrayList<>();
+    ArrayList<PremiosDoAluno> arrayItems = new ArrayList<>();
     ListView listview;
-    CustomArrayAdapter itemsAdapter;
+    CustomArrayAdapterPremios itemsAdapter;
     //ArrayAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_principal);
+        setContentView(R.layout.activity_premios);
 
-        itemsAdapter = new CustomArrayAdapter(this, arrayItems);
-        listview = findViewById(R.id.lista);
+        carregarPremios();
+
+        itemsAdapter = new CustomArrayAdapterPremios(this, arrayItems);
+        listview = findViewById(R.id.listaPD);
         this.listview.setAdapter(this.itemsAdapter);
 
-        carregarCadeiras();
-
-        registerForContextMenu((ListView)findViewById(R.id.lista));
+        registerForContextMenu((ListView)findViewById(R.id.listaPD));
     }
 
-    //public void fillLista(){
-     //   ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, items);
-
-    //}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_ativ_1, menu);
-
+        carregarPremios();
         return true;
     }
+
+
+
 
 
     @Override
@@ -90,13 +90,13 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_cont_1, menu);
+        inflater.inflate(R.menu.menu_cont_2, menu);
     }
 
 
-    public void carregarCadeiras() {
+    public void carregarPremios() {
 
-        String url = "http://192.168.1.69/myslim/api/testecadeirasinscritas";
+        String url = "http://192.168.1.69/myslim/api/premio/1";
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, (response) -> {
@@ -106,7 +106,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                         this.arrayItems.clear();
                         for (int i = 0; i < arr.length(); i++) {
                             JSONObject obj = arr.getJSONObject(i);
-                            this.arrayItems.add(new CadeiraMenuPrincipal(obj.getInt("id"), obj.getString("nome"), obj.getInt("pontos")));
+                            this.arrayItems.add(new PremiosDoAluno(obj.getInt("id"), obj.getString("nome"), obj.getInt("pontos_necessarios")));
                             //Toast.makeText(MenuPrincipalActivity.this, "ola", Toast.LENGTH_SHORT).show();
                             //Toast.makeText(MenuPrincipalActivity.this, obj.getString("aluno") + ";" +
                             //obj.getString("palavrapasse"), Toast.LENGTH_SHORT).show();
@@ -123,7 +123,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 });
 
         // Access the RequestQueue through your singleton class.
-            MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
+        MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
 
         /*
         //De uma string apenas
@@ -151,7 +151,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
         */
 
-        }
+    }
 
 
 
@@ -159,19 +159,12 @@ public class MenuPrincipalActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.reclamarPremio:
-                Intent intent = new Intent(this, PremiosActivity.class);
-                startActivity(intent);
+            case R.id.editar:
                 Toast.makeText(this, "Carregou em 'Remover'", Toast.LENGTH_SHORT ).show();
-                return true;
-            case R.id.solicitarCompetencia:
-                Intent intent2 = new Intent(this, CompetenciasActivity.class);
-                startActivity(intent2);
-                Toast.makeText(this, "Carregou em 'Remover'", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
 
-    }
+}
